@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | IT Student & Web Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #001f3f;
+            --navy-dark: #0a1929;
+            --navy-light: #003d7a;
+            --blue: #0066cc;
+            --blue-light: #3399ff;
+            --gray-light: #f5f7fa;
+            --gray-medium: #e0e7ff;
+            --gray-dark: #4b5563;
+            --white: #ffffff;
+            --success: #00c864;
+            --error: #ff6464;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background-color: var(--gray-light);
+            color: var(--navy);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 50;
+            border-bottom: 1px solid var(--gray-medium);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 31, 63, 0.05);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .logo i {
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex !important;
+            }
+        }
+
+        .nav-links.active {
+            display: flex;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            gap: 1.5rem;
+            border-top: 1px solid var(--gray-medium);
+            box-shadow: 0 10px 20px rgba(0, 31, 63, 0.1);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .nav-links a {
+            background: none;
+            border: none;
+            color: var(--navy);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+            text-align: left;
+            text-decoration: none;
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links a {
+                width: auto;
+                text-align: center;
+                display: inline;
+            }
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--navy);
+            z-index: 60;
+            padding: 0.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .menu-btn {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(0, 31, 63, 0.02), rgba(0, 102, 204, 0.03));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 102, 204, 0.1), transparent);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 31, 63, 0.08), transparent);
+            animation: float 8s ease-in-out infinite 1s;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--gray-dark);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--blue);
+            color: var(--blue);
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 102, 204, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .about {
+                grid-template-columns: 1fr;
+                padding: 3rem 2rem;
+            }
+        }
+
+        .avatar {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 4px solid var(--blue);
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 31, 63, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            color: var(--gray-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--navy);
+        }
+
+        .section-title span {
+            color: var(--blue);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            padding: 1.5rem;
+            background: var(--gray-light);
+            border: 2px solid var(--gray-medium);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .skill-card:hover {
+            border-color: var(--blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 102, 204, 0.15);
+        }
+
+        .skill-card i {
+            font-size: 2.5rem;
+            color: var(--blue);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .skill-card h3 {
+            font-size: 1rem;
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        /* Contact Section - UPDATED */
+        .contact {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: white;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact .section-title span {
+            color: var(--blue-light);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* FIXED AUTOFILL STYLES - SIMPLE AND EFFECTIVE */
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        /* Force white text on all states */
+        .form-group input,
+        .form-group input:hover,
+        .form-group input:focus,
+        .form-group input:active {
+            color: white !important;
+        }
+
+        /* Special fix for autofill in WebKit browsers */
+        .form-group input:-webkit-autofill,
+        .form-group input:-webkit-autofill:hover,
+        .form-group input:-webkit-autofill:focus,
+        .form-group input:-webkit-autofill:active {
+            -webkit-text-fill-color: white !important;
+            -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset !important;
+            box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset !important;
+            transition: background-color 5000s ease-in-out 0s !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+        }
+
+        /* Fix for Firefox */
+        .form-group input:-moz-autofill,
+        .form-group input:-moz-autofill:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+        }
+
+        /* Focus state */
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--blue-light);
+            background: rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2) !important;
+        }
+
+        /* Placeholder styles */
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .contact-item i {
+            font-size: 1.3rem;
+            color: var(--blue-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--blue-light);
+            border-color: var(--blue-light);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--blue);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+            transition: all 0.3s ease;
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        /* Form Status Messages */
+        .form-status {
+            display: none;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .form-status.success {
+            background-color: rgba(0, 200, 100, 0.2);
+            color: #00c864;
+            border: 1px solid #00c864;
+            display: block;
+        }
+
+        .form-status.error {
+            background-color: rgba(255, 100, 100, 0.2);
+            color: #ff6464;
+            border: 1px solid #ff6464;
+            display: block;
+        }
+
+        /* Hidden class for honeypot */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Popup Notification */
+        .popup-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 400px;
+            border-left: 5px solid var(--success);
+        }
+
+        .popup-notification.show {
+            transform: translateX(0);
+        }
+
+        .popup-notification.error {
+            border-left-color: var(--error);
+        }
+
+        .popup-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--success), #00e676);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .popup-notification.error .popup-icon {
+            background: linear-gradient(135deg, var(--error), #ff5252);
+        }
+
+        .popup-content {
+            flex: 1;
+        }
+
+        .popup-content h3 {
+            font-size: 1.1rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .popup-content p {
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            margin: 0;
+        }
+
+        .popup-close {
+            background: none;
+            border: none;
+            color: var(--gray-dark);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+            transition: color 0.3s;
+        }
+
+        .popup-close:hover {
+            color: var(--navy);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fa-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fa-spinner {
+            animation: fa-spin 1s linear infinite;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
+        .skill-card:nth-child(5) { animation-delay: 0.5s; }
+        .skill-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Responsive Popup */
+        @media (max-width: 768px) {
+            .popup-notification {
+                top: 80px;
+                right: 10px;
+                left: 10px;
+                max-width: calc(100% - 20px);
+            }
+        }
+
+        /* Certificate Cards Enhancement */
+        .certificate-card {
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid var(--blue);
+            box-shadow: 0 4px 15px rgba(0, 31, 63, 0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Project Section Enhancement */
+        .project-card {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 12px;
+            border-left: 5px solid var(--blue);
+            box-shadow: 0 4px 20px rgba(0, 31, 63, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                Portfolio
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#certificates">Certificates</a>
+                <a href="#capstone">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Hi, I'm an IT Student</h1>
+            <p>Passionate about web development and creating modern digital experiences</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('skills')">
+                    <i class="fas fa-arrow-down"></i>
+                    View My Skills
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('contact')">
+                    <i class="fas fa-envelope"></i>
+                    Contact Me
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="avatar">
+            <img src="me.jpg" alt="Portfolio Avatar" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop&crop=face';" />
+        </div>
+        <div class="about-content">
+            <h2>About Me</h2>
+            <p>I am a responsible and dedicated student with basic knowledge in computer operations and information technology. I am willing to learn new skills, improve my abilities, and gain practical experience.</p>
+            <p>I am committed to performing my tasks with professionalism and can work effectively both independently and as part of a team.</p>
+            <div style="margin-top: 2rem;">
+                <p><strong><i class="fas fa-laptop"></i> Years of Experience:</strong> 4+ years</p>
+                <p style="margin-top: 1rem;"><strong><i class="fas fa-briefcase"></i> Projects Completed:</strong> 5+</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">My <span>Skills</span></h2>
+            
+            <!-- Programming Languages -->
+            <div style="margin-bottom: 3rem;">
+                <h3 style="font-size: 1.5rem; color: var(--navy); margin-bottom: 1.5rem; text-align: center;">Programming Languages</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fab fa-php"></i>
+                        <h3>PHP</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-html5"></i>
+                        <h3>HTML</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-css3"></i>
+                        <h3>CSS</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-js"></i>
+                        <h3>JavaScript</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-python"></i>
+                        <h3>Python</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Computer Software & Frameworks -->
+            <div style="margin-bottom: 3rem;">
+                <h3 style="font-size: 1.5rem; color: var(--navy); margin-bottom: 1.5rem; text-align: center;">Computer Software & Frameworks</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fas fa-file-word"></i>
+                        <h3>Microsoft Office</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-palette"></i>
+                        <h3>Adobe Photoshop & Canva</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-film"></i>
+                        <h3>CapCut</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database -->
+            <div>
+                <h3 style="font-size: 1.5rem; color: var(--navy); margin-bottom: 1.5rem; text-align: center;">Database</h3>
+                <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="skill-card" style="grid-column: span 1;">
+                        <i class="fas fa-database"></i>
+                        <h3>MySQL (MySQLi)</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="skills" style="background: linear-gradient(135deg, rgba(0, 31, 63, 0.02), rgba(0, 102, 204, 0.03));">
+        <div class="container">
+            <h2 class="section-title">My <span>Certificates</span></h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <!-- Certificate 1 -->
+                <div class="certificate-card">
+                    <div style="display: flex; align-items: start; gap: 1rem; margin-bottom: 1rem;">
+                        <i class="fas fa-certificate" style="font-size: 2rem; color: var(--blue);"></i>
+                        <div>
+                            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem;">National Certificate II - Computer Systems Servicing (NC II)</h3>
+                            <p style="color: var(--blue); font-weight: 600; margin-bottom: 0.5rem;">TESDA</p>
+                            <p style="color: var(--gray-dark); font-size: 0.9rem;">Issued on June 17, 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="certificate-card">
+                    <div style="display: flex; align-items: start; gap: 1rem; margin-bottom: 1rem;">
+                        <i class="fas fa-certificate" style="font-size: 2rem; color: var(--blue);"></i>
+                        <div>
+                            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem;">Introduction to Data Science</h3>
+                            <p style="color: var(--blue); font-weight: 600; margin-bottom: 0.5rem;">Cisco Networking Academy</p>
+                            <p style="color: var(--gray-dark); font-size: 0.9rem;">Issued on November 27, 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="certificate-card">
+                    <div style="display: flex; align-items: start; gap: 1rem; margin-bottom: 1rem;">
+                        <i class="fas fa-certificate" style="font-size: 2rem; color: var(--blue);"></i>
+                        <div>
+                            <h3 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem;">Introduction to Cyber Security</h3>
+                            <p style="color: var(--blue); font-weight: 600; margin-bottom: 0.5rem;">Cisco Networking Academy</p>
+                            <p style="color: var(--gray-dark); font-size: 0.9rem;">Issued on December 1, 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capstone Project Section -->
+    <section id="capstone" class="skills">
+        <div class="container">
+            <h2 class="section-title">Capstone <span>Project</span></h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="project-card">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h3 style="font-size: 1.5rem; color: var(--navy); margin-bottom: 0.5rem;">Web-Based Educational Assistance and Events Record Management System</h3>
+                            <p style="color: var(--blue); font-weight: 600; font-size: 1.05rem;">Lemery Colleges</p>
+                        </div>
+                        <span style="background: linear-gradient(135deg, var(--navy), var(--blue)); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; white-space: nowrap;">Full Stack Development</span>
+                    </div>
+
+                    <p style="color: var(--blue); font-weight: 600; margin-bottom: 1.5rem;">
+                        <i class="fas fa-calendar"></i> Jul 2025 – Dec 2025
+                    </p>
+
+                    <div style="background: var(--gray-light); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <h4 style="color: var(--navy); margin-bottom: 1rem; font-weight: 600;">Project Overview</h4>
+                        <p style="color: var(--gray-dark); line-height: 1.8;">
+                            Developed a comprehensive Web-Based Educational Assistance and Events Record Management System featuring SMS and QR Code integration. The system was designed to digitize administrative records, improve data management efficiency, and enhance communication between educational staff and students.
+                        </p>
+                    </div>
+
+                    <div style="background: var(--gray-light); padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: var(--navy); margin-bottom: 1rem; font-weight: 600;">Key Features & Technologies</h4>
+                        <ul style="list-style: none; color: var(--gray-dark);">
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--blue); margin-right: 0.5rem;"></i>SMS Integration for instant notifications</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--blue); margin-right: 0.5rem;"></i>QR Code generation and scanning functionality</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--blue); margin-right: 0.5rem;"></i>Comprehensive record management system</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--blue); margin-right: 0.5rem;"></i>User-friendly dashboard interface</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--blue); margin-right: 0.5rem;"></i>Real-time data synchronization</li>
+                            <li><i class="fas fa-check" style="color: var(--blue); margin-right: 0.5rem;"></i>Secure authentication and access control</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In <span>Touch</span></h2>
+            <div class="contact-content">
+                <form action="https://api.web3forms.com/submit" method="POST" onsubmit="handleSubmit(event)" id="contactForm">
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="00e72bb5-8123-4cb3-9450-b59b0b3b9107">
+                    <!-- Subject -->
+                    <input type="hidden" name="subject" value="New Message from Portfolio Website">
+                    <!-- Bot protection -->
+                    <input type="checkbox" name="botcheck" class="hidden">
+                    
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Your message" required></textarea>
+                    </div>
+                    
+                    <!-- Honeypot Spam Protection -->
+                    <div class="hidden">
+                        <label for="website">Website</label>
+                        <input type="text" name="website" id="website">
+                    </div>
+                    
+                    <!-- Form Status Message -->
+                    <div id="form-status" class="form-status"></div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>andreidolor61@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>0951 025 5841</span>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/radolor" class="social-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/andreidolor61-hub" class="social-link" title="GitHub" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.facebook.com/andrei.dolor.7" class="social-link" title="Facebook" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=andreidolor61@gmail.com"
+                        class="social-link"
+                        title="Email"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+    </footer>
+
+    <!-- Popup Notification -->
+    <div id="popupNotification" class="popup-notification" aria-live="polite" aria-atomic="true">
+        <div class="popup-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="popup-content">
+            <h3>Message Sent Successfully!</h3>
+            <p>Thank you for your message. I will get back to you soon.</p>
+        </div>
+        <button class="popup-close" onclick="hidePopup()" aria-label="Close notification">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script>
+        // DOM Ready Function
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Portfolio website loaded successfully');
+            
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('menuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isActive = navLinks.classList.toggle('active');
+                    
+                    // Change menu icon
+                    menuBtn.innerHTML = isActive 
+                        ? '<i class="fas fa-times"></i>' 
+                        : '<i class="fas fa-bars"></i>';
+                    
+                    // Update aria label
+                    menuBtn.setAttribute('aria-label', 
+                        isActive ? 'Close menu' : 'Open menu'
+                    );
+                });
+                
+                // Close menu when clicking links
+                const navLinksItems = navLinks.querySelectorAll('a');
+                navLinksItems.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('active');
+                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        menuBtn.setAttribute('aria-label', 'Open menu');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
+                        navLinks.classList.remove('active');
+                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        menuBtn.setAttribute('aria-label', 'Open menu');
+                    }
+                });
+                
+                // Close menu on window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth >= 768) {
+                        navLinks.classList.remove('active');
+                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        menuBtn.setAttribute('aria-label', 'Open menu');
+                    }
+                });
+            }
+            
+            // Initialize form autofill fix
+            fixFormAutofill();
+        });
+
+        // Smooth Scroll function
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Update URL hash without scrolling
+                history.pushState(null, null, `#${id}`);
+            }
+        }
+
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Show/Hide Scroll to Top Button
+        window.addEventListener('scroll', () => {
+            const scrollTopBtn = document.getElementById('scrollTop');
+            if (scrollTopBtn) {
+                if (window.scrollY > 300) {
+                    scrollTopBtn.classList.add('active');
+                } else {
+                    scrollTopBtn.classList.remove('active');
+                }
+            }
+        });
+
+        // Form Autofill Fix Function
+        function fixFormAutofill() {
+            const form = document.getElementById('contactForm');
+            if (!form) return;
+            
+            const inputs = form.querySelectorAll('input');
+            
+            // Check for autofilled inputs periodically
+            setInterval(() => {
+                inputs.forEach(input => {
+                    // Force correct styles if browser autofills
+                    if (input.matches(':-webkit-autofill') || 
+                        input.matches(':-moz-autofill') ||
+                        input.value && input.value !== '') {
+                        
+                        input.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                        input.style.color = 'white';
+                        input.style.webkitTextFillColor = 'white';
+                        
+                        // Force focus and blur to trigger styles
+                        input.focus();
+                        input.blur();
+                    }
+                });
+            }, 100);
+            
+            // Also fix on form focus
+            form.addEventListener('focusin', (e) => {
+                if (e.target.tagName === 'INPUT') {
+                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+                    e.target.style.color = 'white';
+                }
+            });
+            
+            form.addEventListener('focusout', (e) => {
+                if (e.target.tagName === 'INPUT') {
+                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                    e.target.style.color = 'white';
+                }
+            });
+        }
+
+        // Popup Notification Functions
+        function showPopup(type = 'success', message = 'Message sent successfully!') {
+            const popup = document.getElementById('popupNotification');
+            if (!popup) return;
+            
+            const popupIcon = popup.querySelector('.popup-icon i');
+            const popupTitle = popup.querySelector('.popup-content h3');
+            const popupMessage = popup.querySelector('.popup-content p');
+            
+            // Set popup content based on type
+            if (type === 'success') {
+                popup.classList.remove('error');
+                popup.style.borderLeftColor = 'var(--success)';
+                popupIcon.className = 'fas fa-check';
+                popupTitle.textContent = 'Message Sent Successfully!';
+                popupMessage.textContent = message;
+                popupIcon.parentElement.style.background = 'linear-gradient(135deg, var(--success), #00e676)';
+            } else {
+                popup.classList.add('error');
+                popup.style.borderLeftColor = 'var(--error)';
+                popupIcon.className = 'fas fa-exclamation-triangle';
+                popupTitle.textContent = 'Message Failed!';
+                popupMessage.textContent = message;
+                popupIcon.parentElement.style.background = 'linear-gradient(135deg, var(--error), #ff5252)';
+            }
+            
+            // Show popup with animation
+            popup.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            const hideTimeout = setTimeout(() => {
+                hidePopup();
+            }, 5000);
+            
+            // Store timeout ID for clearing if needed
+            popup._hideTimeout = hideTimeout;
+        }
+
+        function hidePopup() {
+            const popup = document.getElementById('popupNotification');
+            if (!popup) return;
+            
+            // Clear any existing timeout
+            if (popup._hideTimeout) {
+                clearTimeout(popup._hideTimeout);
+            }
+            
+            popup.classList.remove('show');
+        }
+
+        // Web3Forms Form Submission
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const submitBtn = document.getElementById('submit-btn');
+            const formStatus = document.getElementById('form-status');
+            
+            if (!form || !submitBtn || !formStatus) return;
+            
+            // Get original button text
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Hide previous status messages
+            formStatus.style.display = 'none';
+            formStatus.className = 'form-status';
+            
+            try {
+                const formData = new FormData(form);
+                
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Success - show popup
+                    showPopup('success', result.message || 'Thank you for your message! I will get back to you soon.');
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Also show form status for accessibility
+                    formStatus.textContent = result.message || 'Thank you for your message! I will get back to you soon.';
+                    formStatus.className = 'form-status success';
+                    formStatus.style.display = 'block';
+                    
+                } else {
+                    // Error - show popup
+                    showPopup('error', result.message || 'Something went wrong. Please try again.');
+                    
+                    // Also show form status for accessibility
+                    formStatus.textContent = result.message || 'Something went wrong. Please try again.';
+                    formStatus.className = 'form-status error';
+                    formStatus.style.display = 'block';
+                }
+                
+            } catch (error) {
+                console.error('Form submission error:', error);
+                
+                // Network error - show popup
+                showPopup('error', 'Network error. Please check your connection and try again.');
+                
+                // Also show form status for accessibility
+                formStatus.textContent = 'Network error. Please check your connection and try again.';
+                formStatus.className = 'form-status error';
+                formStatus.style.display = 'block';
+                
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Close popup when clicking outside
+        document.addEventListener('click', (event) => {
+            const popup = document.getElementById('popupNotification');
+            if (popup && popup.classList.contains('show') && !popup.contains(event.target)) {
+                hidePopup();
+            }
+        });
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                hidePopup();
+            }
+        });
+
+        // Add animation to skill cards when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe skill cards
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.style.animationPlayState = 'paused';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
