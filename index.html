@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | IT Student & Web Developer</title>
+    <title>Portfolio | IT Web Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -215,6 +215,14 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                white-space: normal;
+                font-size: clamp(2rem, 8vw, 2.8rem);
+            }
         }
 
         .hero p {
@@ -312,7 +320,9 @@
             font-size: 1.05rem;
             color: var(--gray-dark);
             margin-bottom: 1.5rem;
-            line-height: 1.8;
+            line-height: 1.9;
+            text-align: justify;
+            text-justify: inter-word;
         }
 
         /* Skills Section */
@@ -745,15 +755,654 @@
         .project-card:hover {
             transform: translateY(-5px);
         }
+
+
+        /* Animated WebGL Background */
+        #shaderBackground {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            background: #f5f7fa;
+        }
+
+        body {
+            position: relative;
+            isolation: isolate;
+            transition: background-color 0.35s ease, color 0.35s ease;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background: rgba(245, 247, 250, 0.72);
+            backdrop-filter: blur(1px);
+            transition: background 0.35s ease;
+        }
+
+        .theme-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--gray-medium);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--navy);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 4px 14px rgba(0, 31, 63, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px) rotate(8deg);
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            --navy: #e8efff;
+            --navy-dark: #07111f;
+            --navy-light: #163a66;
+            --blue: #5aa9ff;
+            --blue-light: #8bc5ff;
+            --gray-light: #0b1422;
+            --gray-medium: #24344d;
+            --gray-dark: #b8c5d9;
+            --white: #101c2d;
+            background-color: #07111f;
+            color: #e8efff;
+        }
+
+        body.dark-mode::before {
+            background: rgba(7, 17, 31, 0.66);
+        }
+
+        body.dark-mode nav,
+        body.dark-mode .nav-links.active {
+            background: rgba(8, 20, 36, 0.92);
+            border-color: rgba(139, 197, 255, 0.18);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);
+        }
+
+        body.dark-mode .theme-toggle {
+            background: rgba(18, 37, 62, 0.9);
+            color: #ffd66b;
+            border-color: rgba(139, 197, 255, 0.25);
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, rgba(4, 14, 29, 0.34), rgba(18, 44, 78, 0.28));
+        }
+
+        body.dark-mode .skills,
+        body.dark-mode #certificates,
+        body.dark-mode #capstone {
+            background: rgba(9, 22, 39, 0.78) !important;
+        }
+
+        body.dark-mode .skill-card,
+        body.dark-mode .certificate-card,
+        body.dark-mode .project-card {
+            background: rgba(16, 31, 52, 0.9);
+            border-color: rgba(90, 169, 255, 0.25);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+        }
+
+        body.dark-mode .project-card > div[style*="background: var(--gray-light)"],
+        body.dark-mode [style*="background: var(--gray-light)"] {
+            background: rgba(7, 17, 31, 0.72) !important;
+        }
+
+        body.dark-mode .about-content h2,
+        body.dark-mode .section-title,
+        body.dark-mode .skill-card h3,
+        body.dark-mode .certificate-card h3,
+        body.dark-mode .project-card h3,
+        body.dark-mode .project-card h4,
+        body.dark-mode [style*="color: var(--navy)"] {
+            color: #e8efff !important;
+        }
+
+        body.dark-mode .about-content p,
+        body.dark-mode .project-card p,
+        body.dark-mode .project-card li,
+        body.dark-mode .certificate-card p,
+        body.dark-mode [style*="color: var(--gray-dark)"] {
+            color: #b8c5d9 !important;
+        }
+
+        body.dark-mode .popup-notification {
+            background: #101f34;
+            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .popup-content h3,
+        body.dark-mode .popup-close {
+            color: #e8efff;
+        }
+
+        body.dark-mode .popup-content p {
+            color: #b8c5d9;
+        }
+
+        /* Complete dark-mode readability fixes */
+        body.dark-mode .contact {
+            background: linear-gradient(135deg, #07111f 0%, #0b1d33 52%, #102d4d 100%);
+            color: #f4f8ff;
+        }
+
+        body.dark-mode .contact .section-title,
+        body.dark-mode .contact .form-group label,
+        body.dark-mode .contact-info,
+        body.dark-mode .contact-item,
+        body.dark-mode .contact-item span {
+            color: #f4f8ff !important;
+        }
+
+        body.dark-mode .contact .section-title span,
+        body.dark-mode .contact-item i {
+            color: #78b9ff !important;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            background: rgba(255, 255, 255, 0.075) !important;
+            border-color: rgba(180, 214, 255, 0.34);
+            color: #ffffff !important;
+            caret-color: #ffffff;
+        }
+
+        body.dark-mode .form-group input::placeholder,
+        body.dark-mode .form-group textarea::placeholder {
+            color: rgba(231, 241, 255, 0.72);
+        }
+
+        body.dark-mode .form-group input:focus,
+        body.dark-mode .form-group textarea:focus {
+            background: rgba(255, 255, 255, 0.11) !important;
+            border-color: #78b9ff;
+            box-shadow: 0 0 0 3px rgba(90, 169, 255, 0.2) !important;
+        }
+
+        body.dark-mode .contact .btn-primary {
+            background: linear-gradient(135deg, #1677d2, #52a8ff);
+            color: #ffffff;
+            box-shadow: 0 5px 18px rgba(35, 133, 224, 0.34);
+        }
+
+        body.dark-mode .contact .btn-primary:hover {
+            background: linear-gradient(135deg, #2187e6, #65b3ff);
+            box-shadow: 0 7px 24px rgba(35, 133, 224, 0.42);
+        }
+
+        body.dark-mode .contact-info {
+            border-top-color: rgba(180, 214, 255, 0.22);
+        }
+
+        body.dark-mode .social-link {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(180, 214, 255, 0.3);
+            color: #f4f8ff;
+        }
+
+        body.dark-mode .social-link:hover {
+            background: #247fda;
+            border-color: #78b9ff;
+            color: #ffffff;
+        }
+
+        body.dark-mode footer {
+            background: #050d18;
+            color: #c8d6e8;
+            border-top-color: rgba(139, 197, 255, 0.14);
+        }
+
+        body.dark-mode .theme-toggle {
+            background: rgba(18, 37, 62, 0.92);
+            color: #dcebff;
+            border-color: rgba(139, 197, 255, 0.32);
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background: rgba(27, 55, 88, 0.98);
+            color: #78b9ff;
+            border-color: #78b9ff;
+        }
+
+        body:not(.dark-mode) .theme-toggle {
+            color: #164f86;
+        }
+
+        body:not(.dark-mode) .theme-toggle:hover {
+            color: #0066cc;
+        }
+
+        body.dark-mode .btn-secondary {
+            color: #78b9ff;
+            border-color: #78b9ff;
+        }
+
+        body.dark-mode .btn-secondary:hover {
+            background: rgba(90, 169, 255, 0.13);
+        }
+
+        body.dark-mode strong,
+        body.dark-mode .about-content strong {
+            color: #edf5ff;
+        }
+
+        @media (max-width: 767px) {
+            .nav-content {
+                gap: 0.75rem;
+            }
+
+            .nav-actions {
+                margin-left: auto;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #shaderBackground {
+                display: none;
+            }
+        }
+
+        /* Skeleton Loading Screen */
+        .skeleton-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            overflow-y: auto;
+            background: #f5f7fa;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.45s ease, visibility 0.45s ease;
+        }
+
+        .skeleton-loader.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .skeleton-nav {
+            height: 76px;
+            padding: 0 2rem;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid #e0e7ff;
+            display: flex;
+            align-items: center;
+        }
+
+        .skeleton-nav-inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .skeleton-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .skeleton-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .skeleton-hero {
+            min-height: 390px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .skeleton-button-row {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skeleton-about {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding: 4rem 0;
+        }
+
+        .skeleton-card-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(130px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0 4rem;
+        }
+
+        .skeleton-shape {
+            position: relative;
+            overflow: hidden;
+            background: #dce4ef;
+            border-radius: 8px;
+        }
+
+        .skeleton-shape::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.72),
+                transparent
+            );
+            animation: skeletonShimmer 1.35s infinite;
+        }
+
+        .skeleton-logo {
+            width: 115px;
+            height: 30px;
+        }
+
+        .skeleton-nav-item {
+            width: 74px;
+            height: 16px;
+        }
+
+        .skeleton-circle-small {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+        }
+
+        .skeleton-title {
+            width: min(620px, 86vw);
+            height: 58px;
+            border-radius: 12px;
+        }
+
+        .skeleton-subtitle {
+            width: min(510px, 76vw);
+            height: 20px;
+            margin-top: 1.35rem;
+        }
+
+        .skeleton-button {
+            width: 165px;
+            height: 48px;
+            border-radius: 9px;
+        }
+
+        .skeleton-avatar {
+            width: 290px;
+            height: 290px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .skeleton-heading {
+            width: 230px;
+            height: 40px;
+            margin-bottom: 1.5rem;
+        }
+
+        .skeleton-line {
+            width: 100%;
+            height: 16px;
+            margin-bottom: 0.9rem;
+        }
+
+        .skeleton-line.short {
+            width: 68%;
+        }
+
+        .skeleton-card {
+            height: 150px;
+            border-radius: 12px;
+        }
+
+        @keyframes skeletonShimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        body.dark-mode .skeleton-loader {
+            background: #07111f;
+        }
+
+        body.dark-mode .skeleton-nav {
+            background: #0a1728;
+            border-bottom-color: #24344d;
+        }
+
+        body.dark-mode .skeleton-shape {
+            background: #16263b;
+        }
+
+        body.dark-mode .skeleton-shape::after {
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(120, 185, 255, 0.15),
+                transparent
+            );
+        }
+
+        body.is-loading {
+            overflow: hidden;
+        }
+
+        @media (max-width: 900px) {
+            .skeleton-nav-links {
+                display: none;
+            }
+
+            .skeleton-about {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .skeleton-card-grid {
+                grid-template-columns: repeat(2, minmax(130px, 1fr));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .skeleton-nav,
+            .skeleton-main {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+
+            .skeleton-main {
+                padding-top: 3rem;
+            }
+
+            .skeleton-hero {
+                min-height: 330px;
+            }
+
+            .skeleton-button-row {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .skeleton-button {
+                width: 100%;
+            }
+
+            .skeleton-avatar {
+                width: 230px;
+                height: 230px;
+            }
+
+            .skeleton-card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .skeleton-shape::after {
+                animation: none;
+            }
+
+            .skeleton-loader {
+                transition: none;
+            }
+        }
+
+        /* SweetAlert2 */
+        .swal2-container {
+            z-index: 100000 !important;
+            font-family: inherit;
+        }
+
+        .portfolio-swal-popup {
+            border-radius: 16px !important;
+            padding: 1.6rem !important;
+            background: #ffffff !important;
+            color: #001f3f !important;
+            box-shadow: 0 20px 60px rgba(0, 31, 63, 0.22) !important;
+        }
+
+        .portfolio-swal-title {
+            color: #001f3f !important;
+            font-size: 1.45rem !important;
+        }
+
+        .portfolio-swal-text {
+            color: #4b5563 !important;
+            line-height: 1.7 !important;
+        }
+
+        .portfolio-swal-confirm {
+            min-width: 120px !important;
+            border: 0 !important;
+            border-radius: 8px !important;
+            padding: 0.75rem 1.5rem !important;
+            background: linear-gradient(135deg, #001f3f, #0066cc) !important;
+            color: #ffffff !important;
+            font-family: inherit !important;
+            font-weight: 600 !important;
+            box-shadow: 0 5px 16px rgba(0, 102, 204, 0.28) !important;
+        }
+
+        .portfolio-swal-confirm:focus {
+            box-shadow:
+                0 0 0 3px rgba(51, 153, 255, 0.25),
+                0 5px 16px rgba(0, 102, 204, 0.28) !important;
+        }
+
+        body.dark-mode .portfolio-swal-popup {
+            background: #101f34 !important;
+            color: #e8efff !important;
+            border: 1px solid rgba(139, 197, 255, 0.2);
+            box-shadow: 0 22px 65px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        body.dark-mode .portfolio-swal-title {
+            color: #e8efff !important;
+        }
+
+        body.dark-mode .portfolio-swal-text {
+            color: #b8c5d9 !important;
+        }
+
+        body.dark-mode .portfolio-swal-confirm {
+            background: linear-gradient(135deg, #1677d2, #52a8ff) !important;
+            color: #ffffff !important;
+        }
+
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body>
+<body class="is-loading">
+
+    <!-- Skeleton Loading Screen -->
+    <div class="skeleton-loader" id="skeletonLoader" aria-hidden="true">
+        <div class="skeleton-nav">
+            <div class="skeleton-nav-inner">
+                <div class="skeleton-shape skeleton-logo"></div>
+
+                <div class="skeleton-nav-links">
+                    <div class="skeleton-shape skeleton-nav-item"></div>
+                    <div class="skeleton-shape skeleton-nav-item"></div>
+                    <div class="skeleton-shape skeleton-nav-item"></div>
+                    <div class="skeleton-shape skeleton-nav-item"></div>
+                    <div class="skeleton-shape skeleton-nav-item"></div>
+                </div>
+
+                <div class="skeleton-shape skeleton-circle-small"></div>
+            </div>
+        </div>
+
+        <div class="skeleton-main">
+            <div class="skeleton-hero">
+                <div class="skeleton-shape skeleton-title"></div>
+                <div class="skeleton-shape skeleton-subtitle"></div>
+
+                <div class="skeleton-button-row">
+                    <div class="skeleton-shape skeleton-button"></div>
+                    <div class="skeleton-shape skeleton-button"></div>
+                </div>
+            </div>
+
+            <div class="skeleton-about">
+                <div class="skeleton-shape skeleton-avatar"></div>
+
+                <div>
+                    <div class="skeleton-shape skeleton-heading"></div>
+                    <div class="skeleton-shape skeleton-line"></div>
+                    <div class="skeleton-shape skeleton-line"></div>
+                    <div class="skeleton-shape skeleton-line short"></div>
+                    <div class="skeleton-shape skeleton-line" style="margin-top: 2rem;"></div>
+                    <div class="skeleton-shape skeleton-line short"></div>
+                </div>
+            </div>
+
+            <div class="skeleton-shape skeleton-heading" style="margin: 1rem auto 0;"></div>
+
+            <div class="skeleton-card-grid">
+                <div class="skeleton-shape skeleton-card"></div>
+                <div class="skeleton-shape skeleton-card"></div>
+                <div class="skeleton-shape skeleton-card"></div>
+                <div class="skeleton-shape skeleton-card"></div>
+                <div class="skeleton-shape skeleton-card"></div>
+            </div>
+        </div>
+    </div>
+    <canvas id="shaderBackground" aria-hidden="true"></canvas>
     <!-- Navigation -->
     <nav>
         <div class="nav-content">
             <div class="logo">
                 <i class="fas fa-code"></i>
-                Portfolio
+                ROSS
             </div>
             <div class="nav-links" id="navLinks">
                 <a href="#about">About</a>
@@ -762,22 +1411,32 @@
                 <a href="#capstone">Projects</a>
                 <a href="#contact">Contact</a>
             </div>
-            <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Enable dark mode" title="Dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Hi, I'm an IT Student</h1>
-            <p>Passionate about web development and creating modern digital experiences</p>
+            <h1>Hi, I'm Ross Andrei Dolor</h1>
+            <h2>Information Technology Graduate | Junior Web Developer</h2>            
+            <p>I am passionate about developing modern, responsive, and user-friendly web applications. With a strong foundation in web development and a commitment to continuous learning, I strive to create reliable, efficient, and high-quality digital solutions while growing as an IT professional.</p>
             <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="scrollToSection('skills')">
-                    <i class="fas fa-arrow-down"></i>
-                    View My Skills
-                </button>
+                <a href="DolorRossAndreiD.RESUME.pdf"
+                   class="btn btn-primary"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   style="text-decoration: none;">
+                    <i class="fas fa-file-pdf"></i>
+                    Download CV
+                </a>
                 <button class="btn btn-secondary" onclick="scrollToSection('contact')">
                     <i class="fas fa-envelope"></i>
                     Contact Me
@@ -789,12 +1448,11 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="avatar">
-            <img src="me.jpg" alt="Portfolio Avatar" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop&crop=face';" />
+            <img src="me1.png" alt="Portfolio Avatar" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop&crop=face';" />
         </div>
         <div class="about-content">
             <h2>About Me</h2>
-            <p>I am a responsible and dedicated student with basic knowledge in computer operations and information technology. I am willing to learn new skills, improve my abilities, and gain practical experience.</p>
-            <p>I am committed to performing my tasks with professionalism and can work effectively both independently and as part of a team.</p>
+            <p>I am a Bachelor of Science in Information Technology graduate passionate about building practical and user-friendly technology solutions. I have experience in web development and enjoy exploring backend development, IT support, and other areas of the IT field. I am a fast learner who values continuous improvement, teamwork, and problem-solving. My goal is to grow as an IT professional while contributing reliable, efficient, and high-quality solutions that create real value.</p>
             <div style="margin-top: 2rem;">
                 <p><strong><i class="fas fa-laptop"></i> Years of Experience:</strong> 4+ years</p>
                 <p style="margin-top: 1rem;"><strong><i class="fas fa-briefcase"></i> Projects Completed:</strong> 5+</p>
@@ -984,7 +1642,7 @@
                     </div>
                     
                     <!-- Form Status Message -->
-                    <div id="form-status" class="form-status"></div>
+                    <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
                     
                     <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn">
                         <i class="fas fa-paper-plane"></i>
@@ -1032,27 +1690,249 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+        <p>&copy; 2026 Ross Andrei D. Dolor. All rights reserved.</p>
     </footer>
 
-    <!-- Popup Notification -->
-    <div id="popupNotification" class="popup-notification" aria-live="polite" aria-atomic="true">
-        <div class="popup-icon">
-            <i class="fas fa-check"></i>
-        </div>
-        <div class="popup-content">
-            <h3>Message Sent Successfully!</h3>
-            <p>Thank you for your message. I will get back to you soon.</p>
-        </div>
-        <button class="popup-close" onclick="hidePopup()" aria-label="Close notification">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
+<script>
 
-    <script>
+        // Skeleton Loading
+        function hideSkeletonLoader() {
+            const skeletonLoader = document.getElementById('skeletonLoader');
+            if (!skeletonLoader || skeletonLoader.classList.contains('is-hidden')) return;
+
+            skeletonLoader.classList.add('is-hidden');
+            document.body.classList.remove('is-loading');
+
+            window.setTimeout(() => {
+                skeletonLoader.remove();
+            }, 500);
+        }
+
+        const skeletonStartedAt = performance.now();
+        const minimumSkeletonTime = 850;
+
+        window.addEventListener('load', function() {
+            const elapsed = performance.now() - skeletonStartedAt;
+            const remaining = Math.max(0, minimumSkeletonTime - elapsed);
+            window.setTimeout(hideSkeletonLoader, remaining);
+        }, { once: true });
+
+        // Failsafe so the page never remains covered if an external asset is slow.
+        window.setTimeout(hideSkeletonLoader, 3500);
+
+
+        // Dark Mode
+        function applyTheme(theme) {
+            const isDark = theme === 'dark';
+            document.body.classList.toggle('dark-mode', isDark);
+
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.innerHTML = isDark
+                    ? '<i class="fas fa-sun"></i>'
+                    : '<i class="fas fa-moon"></i>';
+                themeToggle.setAttribute('aria-label', isDark ? 'Enable light mode' : 'Enable dark mode');
+                themeToggle.setAttribute('title', isDark ? 'Light mode' : 'Dark mode');
+            }
+        }
+
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('portfolio-theme');
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            applyTheme(savedTheme || preferredTheme);
+
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                    localStorage.setItem('portfolio-theme', nextTheme);
+                    applyTheme(nextTheme);
+                });
+            }
+        }
+
+        // WebGL Shader Background
+        function initializeShaderBackground() {
+            const canvas = document.getElementById('shaderBackground');
+            if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const gl = canvas.getContext('webgl', { alpha: false, antialias: false });
+            if (!gl) {
+                console.warn('WebGL is not supported.');
+                return;
+            }
+
+            const vertexShaderSource = `
+                attribute vec4 aVertexPosition;
+                void main() {
+                    gl_Position = aVertexPosition;
+                }
+            `;
+
+            const fragmentShaderSource = `
+                precision highp float;
+                uniform vec2 iResolution;
+                uniform float iTime;
+                uniform float iDarkMode;
+
+                const float overallSpeed = 0.2;
+                const float gridSmoothWidth = 0.015;
+                const float minLineWidth = 0.01;
+                const float maxLineWidth = 0.2;
+                const float lineSpeed = 1.0 * overallSpeed;
+                const float lineAmplitude = 1.0;
+                const float lineFrequency = 0.2;
+                const float warpSpeed = 0.2 * overallSpeed;
+                const float warpFrequency = 0.5;
+                const float warpAmplitude = 1.0;
+                const float offsetFrequency = 0.5;
+                const float offsetSpeed = 1.33 * overallSpeed;
+                const float minOffsetSpread = 0.6;
+                const float maxOffsetSpread = 2.0;
+                const int linesPerGroup = 16;
+                const float scale = 5.0;
+
+                #define drawCircle(pos, radius, coord) smoothstep(radius + gridSmoothWidth, radius, length(coord - (pos)))
+                #define drawSmoothLine(pos, halfWidth, t) smoothstep(halfWidth, 0.0, abs(pos - (t)))
+                #define drawCrispLine(pos, halfWidth, t) smoothstep(halfWidth + gridSmoothWidth, halfWidth, abs(pos - (t)))
+
+                float random(float t) {
+                    return (cos(t) + cos(t * 1.3 + 1.3) + cos(t * 1.4 + 1.4)) / 3.0;
+                }
+
+                float getPlasmaY(float x, float horizontalFade, float offset) {
+                    return random(x * lineFrequency + iTime * lineSpeed) * horizontalFade * lineAmplitude + offset;
+                }
+
+                void main() {
+                    vec2 fragCoord = gl_FragCoord.xy;
+                    vec2 uv = fragCoord / iResolution.xy;
+                    vec2 space = (fragCoord - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
+
+                    float horizontalFade = 1.0 - (cos(uv.x * 6.2831853) * 0.5 + 0.5);
+                    float verticalFade = 1.0 - (cos(uv.y * 6.2831853) * 0.5 + 0.5);
+
+                    space.y += random(space.x * warpFrequency + iTime * warpSpeed) * warpAmplitude * (0.5 + horizontalFade);
+                    space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * horizontalFade;
+
+                    vec3 lineColor = mix(vec3(0.10, 0.38, 0.82), vec3(0.40, 0.28, 0.95), iDarkMode);
+                    vec3 bgColor1 = mix(vec3(0.88, 0.94, 1.0), vec3(0.018, 0.045, 0.09), iDarkMode);
+                    vec3 bgColor2 = mix(vec3(0.72, 0.84, 1.0), vec3(0.10, 0.035, 0.20), iDarkMode);
+                    vec3 lines = vec3(0.0);
+
+                    for (int l = 0; l < linesPerGroup; l++) {
+                        float normalizedLineIndex = float(l) / float(linesPerGroup);
+                        float offsetTime = iTime * offsetSpeed;
+                        float offsetPosition = float(l) + space.x * offsetFrequency;
+                        float rand = random(offsetPosition + offsetTime) * 0.5 + 0.5;
+                        float halfWidth = mix(minLineWidth, maxLineWidth, rand * horizontalFade) / 2.0;
+                        float offset = random(offsetPosition + offsetTime * (1.0 + normalizedLineIndex)) * mix(minOffsetSpread, maxOffsetSpread, horizontalFade);
+                        float linePosition = getPlasmaY(space.x, horizontalFade, offset);
+                        float line = drawSmoothLine(linePosition, halfWidth, space.y) / 2.0 + drawCrispLine(linePosition, halfWidth * 0.15, space.y);
+
+                        float circleX = mod(float(l) + iTime * lineSpeed, 25.0) - 12.0;
+                        vec2 circlePosition = vec2(circleX, getPlasmaY(circleX, horizontalFade, offset));
+                        float circle = drawCircle(circlePosition, 0.01, space) * 4.0;
+
+                        lines += (line + circle) * lineColor * rand;
+                    }
+
+                    vec3 finalColor = mix(bgColor1, bgColor2, uv.x);
+                    finalColor *= 0.72 + verticalFade * 0.28;
+                    finalColor += lines * mix(0.34, 0.58, iDarkMode);
+                    gl_FragColor = vec4(finalColor, 1.0);
+                }
+            `;
+
+            function loadShader(type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.error('Shader compile error:', gl.getShaderInfoLog(shader));
+                    gl.deleteShader(shader);
+                    return null;
+                }
+                return shader;
+            }
+
+            const vertexShader = loadShader(gl.VERTEX_SHADER, vertexShaderSource);
+            const fragmentShader = loadShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
+            if (!vertexShader || !fragmentShader) return;
+
+            const shaderProgram = gl.createProgram();
+            gl.attachShader(shaderProgram, vertexShader);
+            gl.attachShader(shaderProgram, fragmentShader);
+            gl.linkProgram(shaderProgram);
+
+            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+                console.error('Shader program link error:', gl.getProgramInfoLog(shaderProgram));
+                return;
+            }
+
+            const positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.bufferData(
+                gl.ARRAY_BUFFER,
+                new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+                gl.STATIC_DRAW
+            );
+
+            const vertexPosition = gl.getAttribLocation(shaderProgram, 'aVertexPosition');
+            const resolutionLocation = gl.getUniformLocation(shaderProgram, 'iResolution');
+            const timeLocation = gl.getUniformLocation(shaderProgram, 'iTime');
+            const darkModeLocation = gl.getUniformLocation(shaderProgram, 'iDarkMode');
+
+            function resizeCanvas() {
+                const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+                const width = Math.floor(window.innerWidth * pixelRatio);
+                const height = Math.floor(window.innerHeight * pixelRatio);
+
+                if (canvas.width !== width || canvas.height !== height) {
+                    canvas.width = width;
+                    canvas.height = height;
+                    gl.viewport(0, 0, width, height);
+                }
+            }
+
+            const startTime = performance.now();
+            let animationFrameId;
+
+            function render(now) {
+                resizeCanvas();
+                gl.useProgram(shaderProgram);
+                gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+                gl.uniform1f(timeLocation, (now - startTime) / 1000);
+                gl.uniform1f(darkModeLocation, document.body.classList.contains('dark-mode') ? 1.0 : 0.0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                gl.vertexAttribPointer(vertexPosition, 2, gl.FLOAT, false, 0, 0);
+                gl.enableVertexAttribArray(vertexPosition);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+                animationFrameId = requestAnimationFrame(render);
+            }
+
+            window.addEventListener('resize', resizeCanvas, { passive: true });
+            animationFrameId = requestAnimationFrame(render);
+
+            window.addEventListener('beforeunload', function() {
+                cancelAnimationFrame(animationFrameId);
+                window.removeEventListener('resize', resizeCanvas);
+                gl.deleteBuffer(positionBuffer);
+                gl.deleteProgram(shaderProgram);
+                gl.deleteShader(vertexShader);
+                gl.deleteShader(fragmentShader);
+            }, { once: true });
+        }
+
         // DOM Ready Function
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Portfolio website loaded successfully');
+
+            initializeTheme();
+            initializeShaderBackground();
             
             // Mobile Menu Toggle
             const menuBtn = document.getElementById('menuBtn');
@@ -1183,54 +2063,37 @@
             });
         }
 
-        // Popup Notification Functions
+        // SweetAlert2 Notifications
         function showPopup(type = 'success', message = 'Message sent successfully!') {
-            const popup = document.getElementById('popupNotification');
-            if (!popup) return;
-            
-            const popupIcon = popup.querySelector('.popup-icon i');
-            const popupTitle = popup.querySelector('.popup-content h3');
-            const popupMessage = popup.querySelector('.popup-content p');
-            
-            // Set popup content based on type
-            if (type === 'success') {
-                popup.classList.remove('error');
-                popup.style.borderLeftColor = 'var(--success)';
-                popupIcon.className = 'fas fa-check';
-                popupTitle.textContent = 'Message Sent Successfully!';
-                popupMessage.textContent = message;
-                popupIcon.parentElement.style.background = 'linear-gradient(135deg, var(--success), #00e676)';
-            } else {
-                popup.classList.add('error');
-                popup.style.borderLeftColor = 'var(--error)';
-                popupIcon.className = 'fas fa-exclamation-triangle';
-                popupTitle.textContent = 'Message Failed!';
-                popupMessage.textContent = message;
-                popupIcon.parentElement.style.background = 'linear-gradient(135deg, var(--error), #ff5252)';
+            const isSuccess = type === 'success';
+
+            if (typeof Swal === 'undefined') {
+                console.error('SweetAlert2 failed to load.');
+                return;
             }
-            
-            // Show popup with animation
-            popup.classList.add('show');
-            
-            // Auto hide after 5 seconds
-            const hideTimeout = setTimeout(() => {
-                hidePopup();
-            }, 5000);
-            
-            // Store timeout ID for clearing if needed
-            popup._hideTimeout = hideTimeout;
+
+            return Swal.fire({
+                icon: isSuccess ? 'success' : 'error',
+                title: isSuccess ? 'Message Sent Successfully!' : 'Message Failed!',
+                text: message,
+                confirmButtonText: 'OK',
+                allowOutsideClick: true,
+                allowEscapeKey: true,
+                buttonsStyling: false,
+                heightAuto: false,
+                customClass: {
+                    popup: 'portfolio-swal-popup',
+                    title: 'portfolio-swal-title',
+                    htmlContainer: 'portfolio-swal-text',
+                    confirmButton: 'portfolio-swal-confirm'
+                }
+            });
         }
 
         function hidePopup() {
-            const popup = document.getElementById('popupNotification');
-            if (!popup) return;
-            
-            // Clear any existing timeout
-            if (popup._hideTimeout) {
-                clearTimeout(popup._hideTimeout);
+            if (typeof Swal !== 'undefined') {
+                Swal.close();
             }
-            
-            popup.classList.remove('show');
         }
 
         // Web3Forms Form Submission
@@ -1274,19 +2137,19 @@
                     // Reset form
                     form.reset();
                     
-                    // Also show form status for accessibility
+                    // Keep an accessible status message without duplicating the SweetAlert.
                     formStatus.textContent = result.message || 'Thank you for your message! I will get back to you soon.';
                     formStatus.className = 'form-status success';
-                    formStatus.style.display = 'block';
+                    formStatus.style.display = 'none';
                     
                 } else {
                     // Error - show popup
                     showPopup('error', result.message || 'Something went wrong. Please try again.');
                     
-                    // Also show form status for accessibility
+                    // Keep an accessible status message without duplicating the SweetAlert.
                     formStatus.textContent = result.message || 'Something went wrong. Please try again.';
                     formStatus.className = 'form-status error';
-                    formStatus.style.display = 'block';
+                    formStatus.style.display = 'none';
                 }
                 
             } catch (error) {
@@ -1295,10 +2158,10 @@
                 // Network error - show popup
                 showPopup('error', 'Network error. Please check your connection and try again.');
                 
-                // Also show form status for accessibility
+                // Keep an accessible status message without duplicating the SweetAlert.
                 formStatus.textContent = 'Network error. Please check your connection and try again.';
                 formStatus.className = 'form-status error';
-                formStatus.style.display = 'block';
+                formStatus.style.display = 'none';
                 
             } finally {
                 // Reset button state
